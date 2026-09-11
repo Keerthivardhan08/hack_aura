@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 31, 41, 55;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, 
+      var(--background-start-rgb),
+      var(--background-end-rgb)
+    );
+  min-height: 100vh;
+}
+
+/* Flaming Fire Arrow Animation */
+.flame-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.flame-arrow:active {
+  transform: scale(0.95);
+}
+
+.flame-layer-1,
+.flame-layer-2,
+.flame-layer-3 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to top,
+    hsl(0 100% 50% / 0.0),
+    hsl(0 100% 40% / 0.2),
+    hsl(30 100% 50% / 0.4),
+    hsl(40 100% 60% / 0.3),
+    hsl(50 100% 70% / 0.1)
+  );
+  animation: flameFlicker 3s ease-in-out infinite;
+}
+
+.flame-layer-1 {
+  animation-delay: 0s;
+  filter: blur(4px);
+}
+
+.flame-layer-2 {
+  animation-delay: 0.8s;
+  filter: blur(2px);
+}
+
+.flame-layer-3 {
+  animation-delay: 1.6s;
+  filter: blur(1px);
+}
+
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-8%) scaleY(1.1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-15%) scaleY(1.25);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-5%) scaleY(1.1);
+    opacity: 0.3;
+  }
+}
+
+.flame-arrow:hover .flame-layer-1,
+.flame-arrow:hover .flame-layer-2,
+.flame-arrow:hover .flame-layer-3 {
+  animation-duration: 2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flame-layer-1,
+  .flame-layer-2,
+  .flame-layer-3 {
+    animation: none;
+    opacity: 0.5 !important;
+  }
+}
+
+/* Call UI Styles */
+.call-controls {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(17, 24, 39, 0.8);
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.call-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.call-btn:hover {
+  transform: scale(1.1);
+}
+
+.btn-video {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.btn-video:hover {
+  background: rgba(34, 197, 94, 0.4);
+}
+
+.btn-audio {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.btn-audio:hover {
+  background: rgba(59, 130, 246, 0.4);
+}
+
+.btn-screen {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.btn-screen:hover {
+  background: rgba(239, 68, 68, 0.4);
+}
+
+.btn-end {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.btn-end:hover {
+  background: rgba(239, 68, 68, 0.4);
+}
+
+.audio-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(17, 24, 39, 0.8);
+  border-radius: 8px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Countdown Animation */
+.countdown-pulse {
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+  height: 6px;
+  border-radius: 3px;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, 
+    #1f2937 25%, 
+    #374151 50%, 
+    #1f2937 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Notification Bell */
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.notification-bell:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.unread-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.urgent-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1f2937;
+  animation: urgent-pulse 1s infinite;
+}
+
+@keyframes urgent-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
